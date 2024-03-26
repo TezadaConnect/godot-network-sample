@@ -11,9 +11,19 @@ config_version=5
 [application]
 
 config/name="Networking Sample"
-run/main_scene="res://networking_scene.tscn"
+run/main_scene="res://resources/scenes/networking_scene.tscn"
 config/features=PackedStringArray("4.2", "C#", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+SendMessageRpcService="*res://services/networking/SendMessageRpcService.cs"
+
+[display]
+
+window/size/window_width_override=576
+window/size/window_height_override=324
+window/stretch/mode="viewport"
 
 [dotnet]
 

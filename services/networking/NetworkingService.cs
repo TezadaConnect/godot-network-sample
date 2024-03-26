@@ -1,33 +1,35 @@
 using Godot;
 
-public partial class NetworkingScene : Node{
-	private const int PORT = 8080;
+public partial class NetWorkingService : Node2D{
+    private const int PORT = 8080;
 	private const string SERVER_ADDRESS = "127.0.0.1";
-
-	public override void _Ready(){
+    public override void _Ready(){
 		// Connect the function to the signal
 		Multiplayer.PeerConnected += PeerConnected;
-		Multiplayer.PeerDisconnected += PeerConnected;
+		Multiplayer.PeerDisconnected += PeerDisconnected;
 		Multiplayer.ConnectedToServer += ConnectedToServer;
 		Multiplayer.ConnectionFailed += ConnectionFailed;
 		Multiplayer.ServerDisconnected += ServerDisconnected;
 	}
 
-	/*
+    /*
 	* *********************************
 	*  JOINING AND CREATING SERVER
 	* *********************************
 	*/
 	public void CreateAServer(){
 		ENetMultiplayerPeer peer = new();
-		peer.CreateServer(PORT);
+		peer.CreateServer(PORT, 2);
 		Multiplayer.MultiplayerPeer = peer;
+		GD.Print("Server Created");
+		GetNode<Label>("/root/Node/NameLabel").Text = "Player ID: " + Multiplayer.GetUniqueId();
 	}
 
 	public void JoinAServer(){
 		ENetMultiplayerPeer peer = new();
 		peer.CreateClient(SERVER_ADDRESS, PORT);
 		Multiplayer.MultiplayerPeer = peer;
+		GetNode<Label>("/root/Node/NameLabel").Text = "Player ID: " + Multiplayer.GetUniqueId();
 	}
 
 	// TO TERMINATE NETWORKING JUST SHIT NULL THE Multiplayer.MultiplayerPeer
@@ -37,14 +39,14 @@ public partial class NetworkingScene : Node{
 	*  NETWORK CONNECTION RESPONSE TO SERVER
 	* **********************************************
 	*/
-	public void PeerConnected(long id){
+	private void PeerConnected(long id){
 		string userID = id.ToString();
-		GD.Print("User: " + userID + " connected to the game");
+		GD.Print("User: " + userID + " connected to the server");
 	}
 
-	public void PeerDisconnected(long id){
+	private void PeerDisconnected(long id){
 		string userID = id.ToString();
-		GD.Print("User: " + userID + " disconnected to the game");
+		GD.Print("User: " + userID + " disconnected to the server");
 	}
 
 	/*
@@ -52,15 +54,15 @@ public partial class NetworkingScene : Node{
 	*  NETWORK CONNECTION RESPONSE TO CLIENT
 	* **********************************************
 	*/
-	public void ConnectedToServer(){
-		GD.Print("Connected to the server.");
+	private void ConnectedToServer(){
+		GD.Print("Established server connection");
 	}
 
-	public void ConnectionFailed(){
+	private void ConnectionFailed(){
 		GD.Print("Failed to connect to the server.");
 	}
 
-	public void ServerDisconnected(){
+	private void ServerDisconnected(){
 		GD.Print("Server has disconnected,");
 	}
 
@@ -81,7 +83,4 @@ public partial class NetworkingScene : Node{
 	public bool GetIsServer(){
 		return Multiplayer.IsServer();
 	}
-
-
-
 }

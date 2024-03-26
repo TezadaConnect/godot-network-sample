@@ -1,15 +1,22 @@
 [gd_scene load_steps=2 format=3 uid="uid://bu1c7ko03n832"]
 
-[ext_resource type="Script" path="res://networking_scene.cs" id="1_58fx1"]
+[ext_resource type="Script" path="res://controllers/NetworkingScene.cs" id="1_lg6l1"]
 
 [node name="Node" type="Node"]
-script = ExtResource("1_58fx1")
+script = ExtResource("1_lg6l1")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
 offset_left = -22.0
 offset_top = -18.0
 offset_right = 1182.0
 offset_bottom = 668.0
+color = Color(0.247059, 0.054902, 0.133333, 1)
+
+[node name="ChatBackground" type="ColorRect" parent="."]
+offset_left = 234.0
+offset_top = 86.0
+offset_right = 1124.0
+offset_bottom = 522.0
 color = Color(0.247059, 0.054902, 0.133333, 1)
 
 [node name="CreateServerButton" type="Button" parent="."]
@@ -26,7 +33,7 @@ offset_right = 194.0
 offset_bottom = 155.0
 text = "Join A Server"
 
-[node name="LineEdit" type="LineEdit" parent="."]
+[node name="ChatInput" type="LineEdit" parent="."]
 offset_left = 33.0
 offset_top = 574.0
 offset_right = 938.0
@@ -39,19 +46,18 @@ offset_right = 1128.0
 offset_bottom = 626.0
 text = "Send"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = 256.0
-offset_top = 94.0
-offset_right = 1125.0
-offset_bottom = 535.0
-theme_override_font_sizes/normal_font_size = 30
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+[node name="Background2" type="ColorRect" parent="."]
+offset_left = 209.0
+offset_top = -18.0
+offset_right = 1164.0
+offset_bottom = 74.0
+color = Color(0.247059, 0.054902, 0.133333, 1)
 
-[node name="Label" type="Label" parent="."]
+[node name="NameLabel" type="Label" parent="."]
 offset_left = 254.0
 offset_top = 21.0
 offset_right = 483.0
 offset_bottom = 70.0
 theme_override_font_sizes/font_size = 40
-text = "Nathan"
+text = "Player ID: #"
 vertical_alignment = 1
