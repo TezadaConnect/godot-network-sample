@@ -22,7 +22,6 @@ public partial class ChatSceneController : Node{
 
 	public void OnPressedSendMessage(){
 		if(!IsValidText(_inputField)){
-			_inputField.PlaceholderText = "This field can't be empty";
 			return;
 		}
 		string message = _inputField.Text;
@@ -32,11 +31,11 @@ public partial class ChatSceneController : Node{
 
 	public bool IsValidText(LineEdit lineEdit){
 		if(lineEdit.Text.Equals("")){
-			lineEdit.PlaceholderText = "This field can't be empty";
+			lineEdit.PlaceholderText = "This field can't be empty.";
 			return false;
 		}
 		if(lineEdit.Text.Length > 40){
-			lineEdit.PlaceholderText = "Character exceeded the max. number of 45";
+			lineEdit.PlaceholderText = "Character exceeded the max. number of 40.";
 			return false;
 		}
 		return true;
