@@ -2,10 +2,12 @@ using Godot;
 
 public partial class ChatSceneController : Node{
 	private SendMessageRpcService sendMessageRpcService;
+	private LineEdit _inputField;
 
 	public override void _Ready(){
 		sendMessageRpcService = GetNode<SendMessageRpcService>("/root/SendMessageRpcService");
 		InitializeButtonListeners();
+		InitializeUiBindings();
 	}
 
 	public void InitializeButtonListeners(){
@@ -14,15 +16,18 @@ public partial class ChatSceneController : Node{
 		GetNode<Button>("SendButton").Pressed += OnPressedSendMessage;
 	}
 
+	public void InitializeUiBindings(){
+		_inputField = GetNode<LineEdit>("ChatInput");
+	}
+
 	public void OnPressedSendMessage(){
-		LineEdit inputField = GetNode<LineEdit>("ChatInput");
-		if(!IsValidText(inputField)){
-			inputField.PlaceholderText = "This field can't be empty";
+		if(!IsValidText(_inputField)){
+			_inputField.PlaceholderText = "This field can't be empty";
 			return;
 		}
-		string message = inputField.Text;
+		string message = _inputField.Text;
 		sendMessageRpcService.TrasnmitMessage(message);
-		inputField.Text = "";
+		_inputField.Text = "";
 	}
 
 	public bool IsValidText(LineEdit lineEdit){
