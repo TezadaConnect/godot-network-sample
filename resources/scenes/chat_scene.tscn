@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bu1c7ko03n832"]
 
-[ext_resource type="Script" path="res://controllers/NetworkingScene.cs" id="1_lg6l1"]
+[ext_resource type="Script" path="res://controllers/ChatSceneController.cs" id="1_lg6l1"]
 
 [node name="Node" type="Node"]
 script = ExtResource("1_lg6l1")

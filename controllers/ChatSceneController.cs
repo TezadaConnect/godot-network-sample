@@ -1,9 +1,6 @@
-using System.Linq;
 using Godot;
 
-public partial class NetworkingScene : Node{
-	// private const int PORT = 8080;
-	// private const string SERVER_ADDRESS = "127.0.0.1";
+public partial class ChatSceneController : Node{
 	private SendMessageRpcService sendMessageRpcService;
 
 	public override void _Ready(){
@@ -18,7 +15,25 @@ public partial class NetworkingScene : Node{
 	}
 
 	public void OnPressedSendMessage(){
+		LineEdit inputField = GetNode<LineEdit>("ChatInput");
+		if(!IsValidText(inputField)){
+			inputField.PlaceholderText = "This field can't be empty";
+			return;
+		}
 		string message = GetNode<LineEdit>("ChatInput").Text;
-		Rpc("SendAmessage", message, Multiplayer.GetUniqueId());
+		sendMessageRpcService.TrasnmitMessage(message);
+		inputField.Text = "";
+	}
+
+	public bool IsValidText(LineEdit lineEdit){
+		if(lineEdit.Text.Equals("")){
+			lineEdit.PlaceholderText = "This field can't be empty";
+			return false;
+		}
+		if(lineEdit.Text.Length > 40){
+			lineEdit.PlaceholderText = "Character exceeded the max. number of 45";
+			return false;
+		}
+		return true;
 	}
 }

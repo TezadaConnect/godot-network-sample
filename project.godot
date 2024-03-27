@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Networking Sample"
-run/main_scene="res://resources/scenes/networking_scene.tscn"
+run/main_scene="res://resources/scenes/chat_scene.tscn"
 config/features=PackedStringArray("4.2", "C#", "Mobile")
 config/icon="res://icon.svg"
 
