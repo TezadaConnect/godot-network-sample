@@ -9,7 +9,7 @@ public partial class SendMessageRpcService : NetWorkingService {
 		_chatBackground = GetNode<ColorRect>("/root/Node/ChatBackground");
     }
     public void TrasnmitMessage(string message){
-		Rpc(nameof(SendAmessage), message, Multiplayer.GetUniqueId().ToString());
+		Rpc(nameof(SendAmessage), message, GetUserID());
 	}
 
     [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
@@ -29,7 +29,7 @@ public partial class SendMessageRpcService : NetWorkingService {
 
 		chatMessage.Text = message;
 		playerName.Text = "Player ID: " + playerID;
-		
+
 		_chatBackground.AddChild(chatContainer);
 
 		if(_chatBackground.GetChildCount() <= 6){

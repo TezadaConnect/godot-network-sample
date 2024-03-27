@@ -3,7 +3,9 @@ using Godot;
 public partial class NetWorkingService : Node2D{
     private const int PORT = 8080;
 	private const string SERVER_ADDRESS = "127.0.0.1";
+	private Label _usernameLabel;
     public override void _Ready(){
+		_usernameLabel = GetNode<Label>("/root/Node/NameLabel");
 		// Connect the function to the signal
 		Multiplayer.PeerConnected += PeerConnected;
 		Multiplayer.PeerDisconnected += PeerDisconnected;
@@ -13,23 +15,27 @@ public partial class NetWorkingService : Node2D{
 	}
 
     /*
-	* *********************************
-	*  JOINING AND CREATING SERVER
-	* *********************************
+	* ***********************************************
+	*  JOINING, CREATING, LEAVING SERVER
+	* ***********************************************
 	*/
 	public void CreateAServer(){
 		ENetMultiplayerPeer peer = new();
 		peer.CreateServer(PORT, 2);
 		Multiplayer.MultiplayerPeer = peer;
 		GD.Print("Server Created");
-		GetNode<Label>("/root/Node/NameLabel").Text = "Player ID: " + Multiplayer.GetUniqueId();
+		_usernameLabel.Text = "Player ID: " + GetUserID();
 	}
 
 	public void JoinAServer(){
 		ENetMultiplayerPeer peer = new();
 		peer.CreateClient(SERVER_ADDRESS, PORT);
 		Multiplayer.MultiplayerPeer = peer;
-		GetNode<Label>("/root/Node/NameLabel").Text = "Player ID: " + Multiplayer.GetUniqueId();
+		_usernameLabel.Text = "Player ID: " + GetUserID();
+	}
+
+	public void LeaveServer(){
+		Multiplayer.MultiplayerPeer = null;
 	}
 
 	// TO TERMINATE NETWORKING JUST SHIT NULL THE Multiplayer.MultiplayerPeer
@@ -71,8 +77,8 @@ public partial class NetWorkingService : Node2D{
 	*  FOR GETTING USERID OF THE APPLICATION
 	* **********************************************
 	*/
-	public long GetUserID(){
-		return Multiplayer.GetUniqueId();
+	public string GetUserID(){
+		return Multiplayer.GetUniqueId().ToString();
 	}
 
 	/*
