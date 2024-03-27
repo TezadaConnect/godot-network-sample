@@ -20,7 +20,7 @@ public partial class ChatSceneController : Node{
 			inputField.PlaceholderText = "This field can't be empty";
 			return;
 		}
-		string message = GetNode<LineEdit>("ChatInput").Text;
+		string message = inputField.Text;
 		sendMessageRpcService.TrasnmitMessage(message);
 		inputField.Text = "";
 	}

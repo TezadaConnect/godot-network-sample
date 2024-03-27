@@ -1,8 +1,7 @@
 using System.Linq;
 using Godot;
 
-public partial class SendMessageRpcService : NetWorkingService { // This class will end up being singleton
-	
+public partial class SendMessageRpcService : NetWorkingService {
 	public void TrasnmitMessage(string message){
 		Rpc("SendAmessage", message, Multiplayer.GetUniqueId().ToString());
 	}
