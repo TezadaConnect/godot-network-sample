@@ -30,13 +30,22 @@ public partial class SendMessageRpcService : NetWorkingService {
 		chatMessage.Text = message;
 		playerName.Text = "Player ID: " + playerID;
 
+		int senderID = Multiplayer.GetRemoteSenderId();
+
+		if(senderID == int.Parse(GetUserID())){
+			Color color = new("#772345");
+			chatContainer.GetNode<ColorRect>("Background").Color = color;
+			playerName.Text = "Player ID: Me";
+		}
+
 		_chatBackground.AddChild(chatContainer);
 
 		if(_chatBackground.GetChildCount() <= 6){
 			return;
 		}
 
-		_chatBackground.GetChildren().RemoveAt(0);
+		ChatContainer containerForDelete = (ChatContainer)_chatBackground.GetChildren().ElementAt(0);
+		containerForDelete.Free();
 
 		foreach (Node2D item in _chatBackground.GetChildren().Cast<Node2D>()){
 			item.Position = new Vector2(0, item.Position.Y - 70);
