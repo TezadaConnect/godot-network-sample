@@ -1,5 +1,5 @@
 using Godot;
 
-public partial class ChatBoxText : Node2D{
+public partial class ChatContainer : Node2D{
 	public override void _Ready(){}
 }
